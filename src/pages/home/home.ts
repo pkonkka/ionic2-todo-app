@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Observable } from 'rxjs/Rx';
+// import { Observable } from 'rxjs/Rx';
+import { Todo } from '../../models/todo';
 
 import { TodoService } from '../../services/todo';
 
@@ -10,16 +11,28 @@ import { TodoService } from '../../services/todo';
 })
 export class HomePage implements OnInit {
 
-  allTodos: any;
+  allTodos: Todo[] = [];
+  filteredTodos: Todo[] = [];
 
   constructor(private todoService: TodoService) {}
 
+  // ------------------------------------------------------------------
   ngOnInit() {
     this.todoService.getAllTodos()
       .subscribe(
         todos => { 
-          this.allTodos = todos;
-          console.log(this.allTodos);
+          this.allTodos = this.filteredTodos = todos;
+          this.filterOutCompletedTasks();
         });
   }
+
+  // ------------------------------------------------------------------
+  filterOutCompletedTasks() {
+
+    this.filteredTodos = this.allTodos.filter(function (todo) {
+      return !todo.completed;
+    });
+
+  }
+
 }
