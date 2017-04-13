@@ -41,4 +41,10 @@ export class HomePage implements OnInit {
 
   }
 
+  // ------------------------------------------------------------------
+  onComplete(index: number) {
+    console.log(this.filteredTodos[index]);
+    this.filteredTodos.splice(index, 1);
+  }
+
 }
