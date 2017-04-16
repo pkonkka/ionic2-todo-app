@@ -22,19 +22,7 @@ export class TodoService {
 
     // -------------------------------------------------------------
     private handleError(error: Response | any) {
-        let errMsg: string;
-
-        if (error instanceof Response) {
-            const body = error.json || '';
-    
-            const err = body || JSON.stringify(body);
-            errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-        } else {
-            errMsg = error.message ? error.message: error.toString();
-        }
-
-        console.log(errMsg);
-
+        let errMsg = `${error.status} - ${error.statusText}`;
         return Observable.throw(errMsg);
     }
 

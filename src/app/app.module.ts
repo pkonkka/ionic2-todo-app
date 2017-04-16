@@ -16,6 +16,7 @@ import { TodoPage } from '../pages/todo/todo';
 import { TodoEditPage } from '../pages/todo-edit/todo-edit';
 import { TodosPage } from '../pages/todos/todos';
 
+import { AuthService } from '../services/auth';
 import { TodoService } from '../services/todo';
 import { UserService } from '../services/user';
 
@@ -53,6 +54,7 @@ import { UserService } from '../services/user';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     TodoService,
+    AuthService
     // UserService
   ]
 })

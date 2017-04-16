@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from 'ionic-angular';
+import { LoadingController, ToastController } from 'ionic-angular';
 
 import { Todo } from '../../models/todo';
 
@@ -14,7 +14,10 @@ export class HomePage implements OnInit {
   allTodos: Todo[] = [];
   filteredTodos: Todo[] = [];
 
-  constructor(private todoService: TodoService, private loadingCtrl: LoadingController) {}
+  constructor(
+    private todoService: TodoService, 
+    private loadingCtrl: LoadingController,
+    private toastCtrl: ToastController) {}
 
   // ------------------------------------------------------------------
   ngOnInit() {
@@ -29,6 +32,15 @@ export class HomePage implements OnInit {
           this.allTodos = this.filteredTodos = todos;
           this.filterOutCompletedTasks();
           loader.dismiss();
+        }, errMsg => {
+          loader.dismiss();          
+          
+          let toast = this.toastCtrl.create({
+            message: errMsg,            
+            duration: 3000,
+            position: 'middle'
+          });
+          toast.present();
         });
   }
 
