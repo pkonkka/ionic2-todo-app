@@ -65,13 +65,17 @@ export class UserService {
 
     // ---------------------------------------------------------
     logout() {
+        let headers = new Headers();
+        headers.append('x-auth', this.token);
 
+        return this.http.delete('https://tranquil-bayou-77212.herokuapp.com/users/me', headers)
+            .map(this.extractData)
+            .catch(this.handleError);
     }
 
     // -------------------------------------------------------------
     private extractLoginData(res: Response) {
         this.token = res.headers.get('x-auth');
-        console.log('Token',this.token);
         let body = res.json();
 
         return body || {};

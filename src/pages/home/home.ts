@@ -28,31 +28,30 @@ export class HomePage implements OnInit {
       .subscribe(
         res => {
           console.log('res', res);
-          this.userService.getMe();
         },
         (errMsg) => console.log(errMsg)
       );
   
-    // const loader = this.loadingCtrl.create({
-    //   content: 'Wait a moment...'
-    // });
-    // loader.present();
-    // this.todoService.getAllTodos()
-    //   .subscribe(
-    //     todos => { 
-    //       this.allTodos = this.filteredTodos = todos;
-    //       this.filterOutCompletedTasks();
-    //       loader.dismiss();
-    //     }, errMsg => {
-    //       loader.dismiss();          
+    const loader = this.loadingCtrl.create({
+      content: 'Wait a moment...'
+    });
+    loader.present();
+    this.todoService.getAllTodos()
+      .subscribe(
+        todos => { 
+          this.allTodos = this.filteredTodos = todos;
+          this.filterOutCompletedTasks();
+          loader.dismiss();
+        }, errMsg => {
+          loader.dismiss();          
           
-    //       let toast = this.toastCtrl.create({
-    //         message: errMsg,            
-    //         duration: 3000,
-    //         position: 'middle'
-    //       });
-    //       toast.present();
-    //     });
+          let toast = this.toastCtrl.create({
+            message: errMsg,            
+            duration: 3000,
+            position: 'middle'
+          });
+          toast.present();
+        });
   }
 
   // ------------------------------------------------------------------
